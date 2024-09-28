@@ -15,6 +15,11 @@ export default function appBody() {
           <br />
           <span className="accent">• </span> 1g of fat is equivaltent to 9 calories
           <br />
+          <br />
+          In case you consumed <span className="accent">Alcohol</span> during the day, it becomes another macronutrient to consider.
+          <br />
+          <br />
+          <span className="accent">• </span> 1g of Alcohol is equivaltent to 7 calories
         </p>
       </div>
     </div>

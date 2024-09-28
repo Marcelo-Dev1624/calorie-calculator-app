@@ -64,7 +64,7 @@ body {
   text-align: center;
   background-color: var(--color-primary-100);
   color: var(--color-secondary-100);
-  padding: 10rem 0;
+  padding: 5rem 0;
   margin: 0;
   box-sizing: border-box;
   font-size: calc(10px + 1vmin);
@@ -117,6 +117,7 @@ header {
   padding: 1rem 2rem;
   text-align: left;
   height: 100%;
+  max-width: 700px;
   border-radius: 25px;
   margin: 2rem;
   box-sizing: border-box;
@@ -156,16 +157,30 @@ a {
     }
 
     & input {
-      padding: 0.6rem;
 
-      width: 100%;
-      max-width: 500px;
-      background: transparent;
-      border: 2px solid var(--color-secondary-100);
-      color: var(--color-secondary-100);
-      font-size: 1.25rem;
-      border-radius: 10px;
-      transition: 300ms all ease-in-out;
+      &[type="number"]{
+      
+        padding: 0.6rem;
+
+        width: 100%;
+        max-width: 500px;
+        background: transparent;
+        border: 2px solid var(--color-secondary-100);
+        color: var(--color-secondary-100);
+        font-size: 1.25rem;
+        border-radius: 10px;
+        transition: 300ms all ease-in-out;
+      }
+
+      &[type="checkbox"] {
+        background-color: #f0f0f0; /* light gray background */
+        color: #333; /* dark gray text */
+        font-size: 18px; /* larger text size */
+        height: 30px; /* taller input element */
+        width: 30px; /* wider input element */
+        display: flex;
+        align-self: center;
+      }
 
       &:focus {
         outline: none;
@@ -220,8 +235,6 @@ a {
     text-align: justify;
     padding: 0 1.5rem;
     font-size: calc(10px + 2vmin);
-
-    
   }
 
   .macrosForm {

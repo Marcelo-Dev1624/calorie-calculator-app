@@ -4,46 +4,116 @@ export default function MacroInputs() {
   const [carbs, setCarbs] = useState();
   const [protein, setProtein] = useState();
   const [fat, setFat] = useState();
+  const [alcohol, setAlcohol] = useState();
   const [calculatedCalories, setCalculatedCalories] = useState();
+
+  const [alcoholConfirmation, setAlcoholConfirmation] = useState();
 
   const handleCarbsChange = (e) => setCarbs(parseInt(e.target.value, 10));
   const handleProteinChange = (e) => setProtein(parseInt(e.target.value, 10));
   const handleFatChange = (e) => setFat(parseInt(e.target.value, 10));
+  const handleAlcoholChange = (e) => setAlcohol(parseInt(e.target.value, 10));
+  const handleAlcoholConfirmChange = (e) => {
+    setAlcoholConfirmation(parseInt(e.target.checked ? 0 : 1));
+    //calculateCalories();
+    console.log(`alcoholConfirmation: ${alcoholConfirmation}`);
+  };
+
+  const includeAlcohol = () => {
+    console.log("includeAlcohol called");
+    if (alcoholConfirmation === 0) {
+      return (
+        <div className="macrosForm__inputGroup">
+          <h1>Grams of Alcohol</h1>
+          <input
+            type="number"
+            id="alcohol-input"
+            value={alcohol}
+            onChange={handleAlcoholChange}
+          />
+        </div>
+      );
+    }
+  };
 
   const calculateCalories = () => {
-    if (
-      carbs === null ||
-      carbs === undefined ||
-      protein === null ||
-      protein === undefined ||
-      fat === null ||
-      fat === undefined
-    ) {
-      alert(
-        "Macros are empty or not all macros are specified, please type your macros to calculate calories afterwards"
-      );
-      return;
-    }
-    if (carbs === 0 && protein === 0 && fat === 0) {
-      alert(
-        "Macros are empty or not all macros are specified, please type your macros to calculate calories afterwards"
-      );
-      return;
-    }
+    if (alcoholConfirmation !== 0) {
+      
+      if (
+        carbs === null ||
+        carbs === undefined ||
+        protein === null ||
+        protein === undefined ||
+        fat === null ||
+        fat === undefined
+        
+      ) {
+        alert(
+          "Macros are empty or not all macros are specified, please type your macros to calculate calories afterwards"
+        );
+        return;
+      }
+      if (carbs === 0 && protein === 0 && fat === 0) {
+        alert(
+          "Macros are empty or not all macros are specified, please type your macros to calculate calories afterwards"
+        );
+        return;
+      }
 
-    if (typeof carbs !== 'number' || typeof protein !== 'number' || typeof fat !== 'number') {
-      alert("Macros must be numbers");
-      return;
-    }
+      if (
+        typeof carbs !== "number" ||
+        typeof protein !== "number" ||
+        typeof fat !== "number"
+      ) {
+        alert("Macros must be numbers");
+        return;
+      }
 
-    const calories = carbs * 4 + protein * 4 + fat * 9;
-    setCalculatedCalories(calories);
+      const calories = carbs * 4 + protein * 4 + fat * 9;
+      setCalculatedCalories(calories);
+    } else {
+      if (
+        carbs === null ||
+        carbs === undefined ||
+        protein === null ||
+        protein === undefined ||
+        fat === null ||
+        fat === undefined ||
+        alcohol === null ||
+        alcohol === undefined
+      ) {
+        alert(
+          "Macros are empty or not all macros are specified, please type your macros to calculate calories afterwards"
+        );
+        return;
+      }
+      if (carbs === 0 && protein === 0 && fat === 0 && alcohol === 0) {
+        alert(
+          "Macros are empty or not all macros are specified, please type your macros to calculate calories afterwards"
+        );
+        return;
+      }
+
+      if (
+        typeof carbs !== "number" ||
+        typeof protein !== "number" ||
+        typeof fat !== "number" ||
+        typeof alcohol !== "number"
+      ) {
+        alert("Macros must be numbers");
+        return;
+      }
+
+      const calories = carbs * 4 + protein * 4 + fat * 9 + alcohol * 7;
+      setCalculatedCalories(calories);
+    }
   };
 
   const clearFields = () => {
     setCarbs("");
     setProtein("");
     setFat("");
+    setAlcohol("");
     setCalculatedCalories("");
   };
 
@@ -84,6 +154,18 @@ export default function MacroInputs() {
           onChange={handleFatChange}
         />
       </div>
+
+      <div className="macrosForm__inputGroup">
+        <h1>Did you have alcohol?</h1>
+        <input
+          type="checkbox"
+          id="alcohol-confirm-checkbox"
+          value={alcoholConfirmation}
+          onChange={handleAlcoholConfirmChange}
+        />
+      </div>
+
+      {includeAlcohol()}
 
       <div className="macrosForm__inputGroup mt-5 gap-3">
         <button
